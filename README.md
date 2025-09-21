@@ -9,6 +9,7 @@
 In this lab you will practice advanced C++ concepts related to **compilation/linking rules**, **ownership models**, and **deterministic lifetime**. You will design small programs that highlight ODR pitfalls, explore value vs reference semantics, and implement RAII wrappers.
 
 All work is **autograded via CI/CTest**. When the GitHub Actions build is green, you earn full marks.
+
 ---
 ## 2. Learning Objectives
 
