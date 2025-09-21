@@ -21,8 +21,8 @@ Tracer::~Tracer() {
     std::cout << "Destroyed: " << name << "\n";
 }
 
-// TODO: implement make_tracer so it creates a Tracer object
-// and returns it by value (without explicit std::move).
+
 Tracer make_tracer(const std::string& tag) {
-    // TODO: create local object and return it
+    Tracer t(tag);
+    return t; 
 }
