@@ -4,6 +4,7 @@
 
 FileRAII::FileRAII(const std::string& filename, const std::string& mode) {
     // TODO: open file
+    handle_ = std::fopen(filename.c_str(), mode.c_str());
 }
 
 FileRAII::FileRAII(FileRAII&& other) noexcept
@@ -22,11 +23,16 @@ FileRAII& FileRAII::operator=(FileRAII&& other) noexcept {
 
 FileRAII::~FileRAII() {
     // TODO: close file if open
+    if (handle_) {
+        std::fclose(handle_);
+        handle_ = nullptr;
+    }
 }
 
 bool FileRAII::valid() const {
     // TODO
-    return false;
+    return handle_ != nullptr;
+    //return false;
 }
 
 FILE* FileRAII::get() const {
