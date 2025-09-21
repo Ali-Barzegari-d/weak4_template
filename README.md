@@ -88,8 +88,6 @@ Avoid manual new/delete.
 
 Implement a minimal RAII wrapper for a **FILE**.
 
-Your job:
-
 Implement the constructor to open the file.
 
 Implement the destructor to close the file.
