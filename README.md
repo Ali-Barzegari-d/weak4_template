@@ -24,49 +24,80 @@ By the end of this lab, you should be able to:
 ---
 ## 3. Task A – ODR Violation Exploration
 
-1. Write a header that incorrectly defines a function (`int add(int,int)`).
-2. Include it in two different `.cpp` files and attempt to link.
-3. Observe the linker error.
-4. Fix the problem by moving the definition into a `.cpp` file or marking it `inline`.
+You are given code where a function is incorrectly defined in a header file.
+When included from multiple .cpp files, this causes an ODR violation.
+
+Fix the violation without adding new files.
+
+Ensure the provided tests in odr_tests.cpp pass.
 
 ---
 ## 4. Task B – Value vs Reference Parameters
 
-1. Implement two versions of a function:
-   ```cpp
-   void inc_by_value(int x);
-   void inc_by_ref(int& x);
-   ```
-2. Show the effect of calling both with the same variable.
-3. Extend with a large `std::string` argument to demonstrate copy vs `const&` efficiency.
+You are given buggy implementations in valref.cpp.
+
+inc_by_value(int) should not modify the caller’s variable.
+
+inc_by_ref(int&) should increase the caller’s variable by 1.
+
+append_value(std::string) should not modify the caller’s string.
+
+append_ref(std::string&) should append "!" to the caller’s string.
+
+Currently, some of these functions are incorrectly implemented.
+
+Fix the functions so that all provided tests in valref_tests.cpp pass
 
 ---
 ## 5. Task C – NRVO and Move Semantics
 
-1. Define a class `Tracer` with copy/move constructors printing messages.
-2. Write a function returning a `Tracer` by value.
-3. Observe whether the copy/move is elided (NRVO).
-4. Explain the difference between elision and explicit move.
+You are given a Tracer class that logs constructor, copy, and move operations.
+
+
+Implement make_tracer(const std::string&) so it creates a local Tracer and returns it by value.
+
+Do not use std::move in the return statement. Let the compiler apply NRVO or move semantics.
+
+The tests check that a Tracer object is returned with the correct name.
 
 ---
 ## 6. Task D – Dangling References
 
-1. Write a function returning a reference to a local variable.
-2. Run the program and observe undefined behavior.
-3. Fix by returning by value or ensuring object lifetime.
+The file contains buggy code that returns a reference to a local variable, causing undefined behavior.
+
+Fix the implementation so no dangling reference occurs.
+
+Ensure safe_value() returns a valid string.
 
 ---
 ## 7. Task E – Smart Pointers
 
-1. Use `std::unique_ptr<int>`: transfer ownership with `std::move` and confirm that the original pointer becomes empty.
-2. Repeat with `std::shared_ptr<int>` and show that both owners share the same resource.
+Implement a class Buffer that manages a dynamic array of ints using smart pointers.
+
+Complete the constructor so it allocates and zero-initializes an array using std::make_unique<int[]>.
+
+Implement size() and operator[].
+
+Ensure all tests in buffer_tests.cpp pass.
+
+Avoid manual new/delete.
 
 ---
 ## 8. Task F – RAII Wrapper
 
-1. Implement a minimal RAII wrapper for a file handle.
-2. Constructor opens a file, destructor closes it.
-3. Demonstrate exception safety: show that the file is always closed, even if an exception occurs.
+Implement a minimal RAII wrapper for a **FILE**.
+
+Your job:
+
+Implement the constructor to open the file.
+
+Implement the destructor to close the file.
+
+Implement valid() and get().
+
+Support move semantics but disable copying.
+
+Tests ensure that the file is closed automatically when the object goes out of scope and that the contents can be verified afterward.
 
 ---
 ## 9. Building and Running
