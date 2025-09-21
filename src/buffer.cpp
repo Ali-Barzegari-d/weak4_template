@@ -1,25 +1,23 @@
 #include "buffer.hpp"
 
-// TODO: Implement all methods
-
-Buffer::Buffer(std::size_t n)
-    : data_(nullptr), size_(0) {
-    // TODO: allocate array of n ints (all zero-initialized) using unique_ptr
+Buffer::Buffer(std::size_t n) : data_(nullptr), size_(n) {
+    if (n > 0) {
+        data_ = std::make_unique<int[]>(n);
+        // صفر کردن عناصر برای اطمینان
+        for (std::size_t i = 0; i < n; ++i) {
+            data_[i] = 0;
+        }
+    }
 }
 
 std::size_t Buffer::size() const {
-    // TODO
-    return 0;
+    return size_;
 }
 
 int& Buffer::operator[](std::size_t idx) {
-    // TODO
-    static int dummy = 0;
-    return dummy;
+    return data_[idx];
 }
 
 const int& Buffer::operator[](std::size_t idx) const {
-    // TODO
-    static int dummy = 0;
-    return dummy;
+    return data_[idx];
 }
